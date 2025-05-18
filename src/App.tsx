@@ -10,13 +10,29 @@ import ImageModal from "./components/ImageModal/ImageModal";
 
 const ACCESS_KEY = "P8qh96HrJNRQUiFF_UH8OJ9EyDU3DHnoMRE9vKO5wXc";
 
+export type UnsplashImage = {
+  id: string;
+  alt_description: string;
+  description: string | null;
+  likes: number;
+  urls: {
+    small: string;
+    regular: string;
+  };
+  width: number;
+  height: number;
+  user: {
+    name: string;
+  };
+};
+
 function App() {
-  const [query, setQuery] = useState("");
-  const [page, setPage] = useState(1);
-  const [images, setImages] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [query, setQuery] = useState<string>("");
+  const [page, setPage] = useState<number>(1);
+  const [images, setImages] = useState<UnsplashImage[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<UnsplashImage | null>(null);
 
   useEffect(() => {
     if (!query) return;
@@ -38,7 +54,7 @@ function App() {
             },
           }
         );
-        const newImages = response.data.results;
+        const newImages: UnsplashImage[] = response.data.results;
         setImages((prev) => (page === 1 ? newImages : [...prev, ...newImages]));
       } catch (err) {
         setError("Failed to fetch images. Please try again later.");
@@ -50,7 +66,7 @@ function App() {
     fetchImages();
   }, [query, page]);
 
-  const handleSearch = (newQuery) => {
+  const handleSearch = (newQuery: string) => {
     if (!newQuery.trim()) {
       toast("Please enter a search term");
       return;

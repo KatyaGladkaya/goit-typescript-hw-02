@@ -1,7 +1,22 @@
 import s from "./ImageGallery.module.css";
 import ImageCard from "../ImageCard/ImageCard";
 
-function ImageGallery({ images, onImageClick }) {
+type Image = {
+  id: string;
+  width: number;
+  height: number;
+  urls: {
+    small: string;
+  };
+  alt_description: string;
+};
+
+type ImageGalleryProps = {
+  images: Image[];
+  onImageClick: (image: Image) => void;
+};
+
+function ImageGallery({images, onImageClick}: ImageGalleryProps) {
     const horizontalImages = images.filter((img) => img.width > img.height);
   if (horizontalImages.length === 0) return null;
   return (

@@ -1,6 +1,10 @@
 import s from "./ErrorMessage.module.css";
 
-function ErrorMessage({ message }) {
+type ErrorMessageProps = {
+  message: string;
+}
+
+function ErrorMessage({message}:ErrorMessageProps) {
   return <p className={s.error}>{message}</p>;
 }
 

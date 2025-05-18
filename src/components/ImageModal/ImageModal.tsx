@@ -1,8 +1,24 @@
 import Modal from "react-modal";
 import s from "./ImageModal.module.css";
 
+type Image = {
+  urls: {
+    regular: string;
+  };
+  alt_description: string;
+  user: {
+    name: string;
+  };
+  likes: number;
+  description: string | null;
+};
 
-function ImageModal({ image, onClose }) {
+type ImageModalProps = {
+  image: Image;
+  onClose: () => void;
+}
+
+function ImageModal({ image, onClose }: ImageModalProps) {
   return (
     <Modal
       isOpen={!!image}

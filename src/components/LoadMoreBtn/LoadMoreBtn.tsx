@@ -1,6 +1,10 @@
 import s from "./LoadMoreBtn.module.css";
 
-function LoadMoreBtn({ onClick }) {
+type LoadMoreBtnProps = {
+  onClick: () => void;
+};
+
+function LoadMoreBtn({ onClick }: LoadMoreBtnProps) {
   return (
     <div className={s.wrapper}>
       <button className={s.loadButton} onClick={onClick}>
