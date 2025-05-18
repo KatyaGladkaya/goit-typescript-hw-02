@@ -7,32 +7,17 @@ import Loader from "./components/Loader/Loader";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import ImageModal from "./components/ImageModal/ImageModal";
+import { Image } from "./types.ts/image"
 
 const ACCESS_KEY = "P8qh96HrJNRQUiFF_UH8OJ9EyDU3DHnoMRE9vKO5wXc";
-
-export type UnsplashImage = {
-  id: string;
-  alt_description: string;
-  description: string | null;
-  likes: number;
-  urls: {
-    small: string;
-    regular: string;
-  };
-  width: number;
-  height: number;
-  user: {
-    name: string;
-  };
-};
 
 function App() {
   const [query, setQuery] = useState<string>("");
   const [page, setPage] = useState<number>(1);
-  const [images, setImages] = useState<UnsplashImage[]>([]);
+  const [images, setImages] = useState<Image[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [selectedImage, setSelectedImage] = useState<UnsplashImage | null>(null);
+  const [selectedImage, setSelectedImage] = useState<Image | null>(null);
 
   useEffect(() => {
     if (!query) return;
@@ -54,7 +39,7 @@ function App() {
             },
           }
         );
-        const newImages: UnsplashImage[] = response.data.results;
+        const newImages: Image[] = response.data.results;
         setImages((prev) => (page === 1 ? newImages : [...prev, ...newImages]));
       } catch (err) {
         setError("Failed to fetch images. Please try again later.");
@@ -81,7 +66,7 @@ function App() {
     <div>
       <SearchBar onSubmit={handleSearch} />
       <Toaster position="top-right" />
-      <ImageGallery images={images} onImageClick={setSelectedImage} />
+      <ImageGallery images={images} onImageClick={(image: Image) => setSelectedImage(image)} />
       <ImageModal
         image={selectedImage}
         onClose={() => setSelectedImage(null)}
