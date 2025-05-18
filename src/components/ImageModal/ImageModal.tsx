@@ -14,7 +14,7 @@ type Image = {
 };
 
 type ImageModalProps = {
-  image: Image;
+  image: Image | null;
   onClose: () => void;
 }
 
