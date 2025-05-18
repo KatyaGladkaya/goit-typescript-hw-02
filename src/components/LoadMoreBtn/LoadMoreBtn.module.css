@@ -1,0 +1,8 @@
+.loadButton {
+    margin: 0 auto;
+    border: none;
+    border-radius: 10px;
+    background-color: green;
+    color: white;
+    padding: 10px;
+}
